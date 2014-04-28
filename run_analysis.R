@@ -18,26 +18,29 @@ mergedData <- rbind(trainData, testData) #Merge test and train data
 colnames(mergedData) <- featureNames[,2] #Name columns by feature names
 #cbind(Subject=rbind(trainSubject, testSubject), mergedData) #Add column for subject id
 mergedData$SubjectID <- c(trainSubject[[1]], testSubject[[1]]) #Add column for subject id
-mergedData$ActivityID <- factor( c(trainY[[1]], testY[[1]]), 
+mergedData$ActivityName <- factor( c(trainY[[1]], testY[[1]]), 
                                     levels=activityNames[,1], 
                                     labels=activityNames[,2]) #Add column for target Y(activity)
 
 meanColNames <- grep("mean", colnames(mergedData), value=TRUE) #Column names with mean in it
 stdColNames <- grep("std", colnames(mergedData), value=TRUE) #Column names with std in it
-subMergedData <- mergedData[, c(meanColNames,stdColNames, "SubjectID", "ActivityID")] #Subset of mergedData with only 
+subMergedData <- mergedData[, c(meanColNames,stdColNames, "SubjectID", "ActivityName")] #Subset of mergedData with only 
                                                                                   #mean, std, subject id & Activityid
 
-selIDX = !(names(subMergedData) %in% c("SubjectID","ActivityID")) #Logical vector selecting all col. except SubjectID, 
-                                                                  #ActivityID
+write.csv(subMergedData, file="subMergedData.csv", row.names=FALSE) #Write subMergedData data to new file
+
+selIDX = !(names(subMergedData) %in% c("SubjectID","ActivityName")) #Logical vector selecting all col. except SubjectID, 
+                                                                  #ActivityName
 summData <- sapply( split(subMergedData, 
-                          interaction( subMergedData$SubjectID, subMergedData$ActivityID),
-                          drop=TRUE), #Splits the df on sublevels of SubjectID, ActivityID
+                          interaction( subMergedData$SubjectID, subMergedData$ActivityName),
+                          drop=TRUE), #Splits the df on sublevels of SubjectID, ActivityName
                     function(elm){
-                      apply(elm[,selIDX], 2, mean) #Takes the mean of each col. in selIDX for each SubjectID, ActivityID
+                      apply(elm[,selIDX], 2, mean) #Takes the mean of each col. in selIDX for each SubjectID, ActivityName
                     } )
 summData <- t(summData)
 summData <- data.frame(SubjectID=sub(".[A-Z _]+", "", rownames(summData)),
                        summData,
-                       ActivityName=sub("[0-9]+.", "", rownames(summData))) #Seperate Subject ID and activity
+                       ActivityName=factor(sub("[0-9]+.", "", rownames(summData)))
+                       ) #Seperate Subject ID and activity
 
 write.csv(summData, file="summaryData.csv", row.names=FALSE) #Write summary data to new file

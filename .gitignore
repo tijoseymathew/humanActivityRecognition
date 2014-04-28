@@ -1,3 +1,4 @@
 UCI HAR Dataset/
 *.zip
 *.Rhistory
+*.csv
