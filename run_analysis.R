@@ -36,3 +36,8 @@ summData <- sapply( split(subMergedData,
                       apply(elm[,selIDX], 2, mean) #Takes the mean of each col. in selIDX for each SubjectID, ActivityID
                     } )
 summData <- t(summData)
+summData <- data.frame(SubjectID=sub(".[A-Z _]+", "", rownames(summData)),
+                       summData,
+                       ActivityName=sub("[0-9]+.", "", rownames(summData))) #Seperate Subject ID and activity
+
+write.csv(summData, file="summaryData.csv", row.names=FALSE) #Write summary data to new file
