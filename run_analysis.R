@@ -27,7 +27,7 @@ stdColNames <- grep("std", colnames(mergedData), value=TRUE) #Column names with 
 subMergedData <- mergedData[, c(meanColNames,stdColNames, "SubjectID", "ActivityName")] #Subset of mergedData with only 
                                                                                   #mean, std, subject id & Activityid
 
-write.csv(subMergedData, file="subMergedData.csv", row.names=FALSE) #Write subMergedData data to new file
+write.csv(subMergedData, file="subMergedData.txt", row.names=FALSE) #Write subMergedData data to new file
 
 selIDX = !(names(subMergedData) %in% c("SubjectID","ActivityName")) #Logical vector selecting all col. except SubjectID, 
                                                                   #ActivityName
@@ -43,4 +43,4 @@ summData <- data.frame(SubjectID=sub(".[A-Z _]+", "", rownames(summData)),
                        ActivityName=factor(sub("[0-9]+.", "", rownames(summData)))
                        ) #Seperate Subject ID and activity
 
-write.csv(summData, file="summaryData.csv", row.names=FALSE) #Write summary data to new file
+write.csv(summData, file="summaryData.txt", row.names=FALSE) #Write summary data to new file
