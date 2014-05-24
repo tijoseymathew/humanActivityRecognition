@@ -8,10 +8,58 @@ The experiments have been carried out with a group of 30 volunteers within an ag
 The steps performed for pre-processing the raw data are summerized below
 - Combine the x\_test.txt & x\_train.txt into a single file.
 - Add column names using mapping from features.txt.
+- Remove -", "(", ")" from original feature names to conform to R standards.
 - Add the subject ID and activity name for each observation.
 - Change activity name into factors using mapping from activity_labels.txt
 - Select columns that have either "mean" or "std" in thier names.
 - Finally create a tidy set by calculating the mean value of each feature by subject ID and activity name.
+
+## Selected features
+The following features have three components in X,Y,Z directions
+- tBodyAccmean
+- tGravityAccmean
+- tBodyAccJerkmean
+- tBodyGyromean
+- tBodyGyroJerkmean
+- fBodyAccmean
+- fBodyAccmeanFreq
+- fBodyAccJerkmean
+- fBodyAccJerkmeanFreq
+- fBodyGyromean
+- fBodyGyromeanFreq
+- tBodyAccstd
+- tGravityAccstd
+- tBodyAccJerkstd
+- tBodyGyrostd
+- tBodyGyroJerkstd
+- fBodyAccstd
+- fBodyAccJerkstd
+- fBodyGyrostd
+
+The following are single features with no components
+
+- fBodyAccMagstd
+- fBodyBodyAccJerkMagstd
+- fBodyBodyGyroMagstd
+- fBodyBodyGyroJerkMagstd
+- tBodyAccMagmean
+- tGravityAccMagmean
+- tBodyAccJerkMagmean
+- tBodyGyroMagmean
+- tBodyGyroJerkMagmean
+- fBodyAccMagmean
+- fBodyAccMagmeanFreq
+- fBodyBodyAccJerkMagmean
+- fBodyBodyAccJerkMagmeanFreq
+- fBodyBodyGyroMagmean
+- fBodyBodyGyroMagmeanFreq
+- fBodyBodyGyroJerkMagmean
+- fBodyBodyGyroJerkMagmeanFreq
+- tBodyAccMagstd
+- tGravityAccMagstd
+- tBodyAccJerkMagstd
+- tBodyGyroMagstd
+- tBodyGyroJerkMagstd
 
 ## Analysis
 The cleaned data set consists of the combined train and test data sets from the original source. Each observation contains,
