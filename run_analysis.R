@@ -16,7 +16,7 @@ trainY <- read.table("UCI HAR Dataset\\train\\y_train.txt") #Read activity id fo
 
 mergedData <- rbind(trainData, testData) #Merge test and train data
 colnames(mergedData) <- featureNames[,2] #Name columns by feature names
-#cbind(Subject=rbind(trainSubject, testSubject), mergedData) #Add column for subject id
+
 mergedData$SubjectID <- c(trainSubject[[1]], testSubject[[1]]) #Add column for subject id
 mergedData$ActivityName <- factor( c(trainY[[1]], testY[[1]]), 
                                     levels=activityNames[,1], 
